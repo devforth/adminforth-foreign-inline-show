@@ -82,7 +82,7 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
           if (!action) {
             return { error: await tr(`Action {actionId} not found`, 'errors', { actionId }) };
           } 
-          
+
           if (action.allowed) {
             const execAllowed = await action.allowed({ adminUser, resourceCopy, selectedIds: recordIds, allowedActions });
             if (!execAllowed) {
