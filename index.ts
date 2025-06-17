@@ -69,7 +69,7 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
           if (this.options.modifyTableResourceConfig) {
             this.options.modifyTableResourceConfig(resourceCopy);
           }
-          
+
           const { allowedActions } = await interpretResource(
             adminUser, 
             resourceCopy, 
