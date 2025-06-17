@@ -58,19 +58,16 @@ const parentResourceRefColumn = computed(() => {
 });
 
 onMounted(async () => {
-  console.log('InlineShow mounted', props.meta.pluginInstanceId, props.record);
   listResource.value = (await callAdminForthApi({
     path: `/plugin/${props.meta.pluginInstanceId}/get_resource`,
     method: 'POST',
     body: {},
   })).resource;
-  console.log('listResource', JSON.stringify(listResource.value));
   await getParentRecord();
 
 });
 
 async function getParentRecord() {
-  console.log('getParentRecord called', parentResourceRefColumn.value, listResource.value);
   if (!listResource.value || !parentResourceRefColumn.value) {
     console.warn('No parent resource or reference column found');
     parentRecord.value = null;
@@ -100,7 +97,6 @@ async function getParentRecord() {
       sort: Array.isArray(sort.value) ? sort.value : [],
     },
   });
-  console.log('getParentRecord data', data);
   if (!data) {
     console.error('No data returned from API', data);
     parentRecord.value = null;
@@ -113,7 +109,6 @@ async function getParentRecord() {
   }
   loading.value = false;
   parentRecord.value = data.data?.[0] || null;
-  console.log('parentRecord', parentRecord.value, listResource.columns.filter(col => col.showIn?.show));
 }
 const filteredColumns = computed(() => {
   return listResource.value?.columns?.filter(col => {
