@@ -50,6 +50,9 @@
       }
     ]
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "clone": "^2.1.2"
   }
