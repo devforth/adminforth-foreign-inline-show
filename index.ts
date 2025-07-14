@@ -33,7 +33,6 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
         if (!resource) {
           return { error: `Resource ${this.options.foreignResourceId} not found` };
         }
-        // exclude "plugins" key
         const resourceCopy = clone({ ...resource, plugins: undefined });
 
         if (this.options.modifyTableResourceConfig) {
@@ -105,7 +104,6 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     super.modifyResourceConfig(adminforth, resourceConfig);
     this.adminforth = adminforth;
 
-    // get resource with foreignResourceId
     this.foreignResource = adminforth.config.resources.find((resource) => resource.resourceId === this.options.foreignResourceId);
     if (!this.foreignResource) {
       const similar = suggestIfTypo(adminforth.config.resources.map((res) => res.resourceId), this.options.foreignResourceId);
@@ -154,7 +152,6 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
             throw new Error(`ForeignInlineShowPlugin: Invalid position ${this.options.placeInGroup?.position}. Must be between 0 and ${targetGroup.columns.length} for group "${this.options.placeInGroup?.name}"`);
           }
 
-          // Only add the column to resourceConfig.columns once
           if (!columnAdded) {
             const beforeColumnName = targetGroup.columns[this.options.placeInGroup.position - 1];
             const beforeColumnIndex = resourceConfig.columns.findIndex(
@@ -164,7 +161,6 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
             columnAdded = true;
           }
 
-          // Add the column name to the group's columns array
           targetGroup.columns.splice(this.options.placeInGroup.position, 0, newColumn.name);
         }
       }
