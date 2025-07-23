@@ -23,6 +23,7 @@
           :columns="filteredColumns"
           :resource="listResource"
           :record="parentRecord"
+          :isRounded="false"
         />
       </div>
     </div>
