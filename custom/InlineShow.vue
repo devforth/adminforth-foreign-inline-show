@@ -73,6 +73,7 @@ async function getParentRecord() {
     console.warn('No parent resource or reference column found');
     parentRecord.value = null;
     loading.value = false;
+    return;
   }
 
   const foreignKeyValue = props.record[parentResourceRefColumn.value.name];
@@ -80,6 +81,7 @@ async function getParentRecord() {
     console.warn('No foreign key value found in the record', props.record);
     parentRecord.value = null;
     loading.value = false;
+    return;
   }
 
   const data = await callAdminForthApi({
@@ -102,11 +104,13 @@ async function getParentRecord() {
     console.error('No data returned from API', data);
     parentRecord.value = null;
     loading.value = false;
+    return;
   }
   if (data.error) {
     showErrorTost(data.error);
     parentRecord.value = null;
     loading.value = false;
+    return;
   }
   loading.value = false;
   parentRecord.value = data.data?.[0] || null;
