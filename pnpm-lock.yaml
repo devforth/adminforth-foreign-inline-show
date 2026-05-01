@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      adminforth:
-        specifier: ^2.35.0
-        version: 2.45.0(@types/node@22.19.13)(typescript@5.9.3)
       clone:
         specifier: ^2.1.2
         version: 2.1.2
@@ -18,6 +15,9 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.19.13
+      adminforth:
+        specifier: ^2.50.0
+        version: 2.50.0(@types/node@22.19.13)(typescript@5.9.3)
       semantic-release:
         specifier: ^24.2.1
         version: 24.2.9(typescript@5.9.3)
@@ -285,20 +285,20 @@ packages:
     resolution: {integrity: sha512-oQG/FejNpItrxRHoyctYvT3rwGZOnK4jr3JdppO/c78ktDvkWiPXPHNsrDf33K9sZdRb6PR7gi4noIapu5q4HA==}
     engines: {node: '>=18.0.0', pnpm: '>=8'}
 
-  '@scalar/client-side-rendering@0.1.3':
-    resolution: {integrity: sha512-rUI5EQA8y0xivzqc/AwExZYW8HRfQSFxPxvvuLjHTCATpKz0xcQBGVJQIPOmp78NJyO8mnQmltE1AxIdtvdPGg==}
+  '@scalar/client-side-rendering@0.1.2':
+    resolution: {integrity: sha512-gX2QIc+lpErO9RWkJmt02sBZoCOjyZ7EiLLEyGj7x9UKkk7E4zj6Wbk1eUPo6i3oIwhtZ+Vybj/xzexCK2bxwA==}
     engines: {node: '>=22'}
 
-  '@scalar/express-api-reference@0.9.10':
-    resolution: {integrity: sha512-udv4u0nz6NDXG3qyGOzp/uVKZn0ksLdVr5D3R5nx+XhO1ZYdNNZoZYjX80Q5NXL68XJAVNMVl+4SObjuwbBTag==}
+  '@scalar/express-api-reference@0.9.9':
+    resolution: {integrity: sha512-YE/ZvEtchsM2Jc4wDq2bhMcXicueVVOWmh+nnG3PlvB2LprLMgR+TikBcYD94vWaSakS5D3dgieEifVwejIsCw==}
     engines: {node: '>=22'}
 
-  '@scalar/helpers@0.5.2':
-    resolution: {integrity: sha512-Pi1GAl8jO6ungmGj2sjDfCfqiBNrKW6HXDZmminV94ybGU/KtRLOqHwd0n9FIhY3j0RYGpGC0VCuniCICfQPHg==}
+  '@scalar/helpers@0.5.1':
+    resolution: {integrity: sha512-9VvPfv8b+YZVIFwR3SWeq4Y8ij/kU3/kf2M6NKcbf2iVyh63d8s0ssap5m/nOhiz/Puidv/29MAJlJCA0LRssA==}
     engines: {node: '>=22'}
 
-  '@scalar/types@0.9.2':
-    resolution: {integrity: sha512-aLn7QTHafpjrN/whup7U5/CHaoPPaYMNtz4L/2yfN5GDSy3AbDM7kV1q8s3nMQIhvC1uscxfriV+KhEND+xHvA==}
+  '@scalar/types@0.9.1':
+    resolution: {integrity: sha512-3EbkhtQc+XuDE8Ur1MPosM3YTACFIFNba4M3vGulqv8jcvhMXT+KWPvGUJxq0CDvySqjGa8cE6w85v8T+MjDng==}
     engines: {node: '>=22'}
 
   '@sec-ant/readable-stream@0.4.1':
@@ -402,8 +402,8 @@ packages:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
 
-  adminforth@2.45.0:
-    resolution: {integrity: sha512-c7s8W7rGDG3HYbIuv5XL1F1i319rM5pVrTE8kBl0gj295kRVXkZsWLAZlSRbh+8zz8cLB4eG/fs7Zyu3/919oQ==}
+  adminforth@2.50.0:
+    resolution: {integrity: sha512-ZVRiLJ54XW8oXb0IwVcaE8czz3p1bPJmJSxe6pLko2b9U9VY44SHMUyilRsr71U5s0iayO2lCpNsi+wfqMRI3w==}
     hasBin: true
 
   agent-base@7.1.4:
@@ -414,8 +414,8 @@ packages:
     resolution: {integrity: sha512-gOsf2YwSlleG6IjRYG2A7k0HmBMEo6qVNk9Bp/EaLgAJT5ngH6PXbqa4ItvnEwCm/velL5jAnQgsHsWnjhGmvw==}
     engines: {node: '>=18'}
 
-  ajv@8.20.0:
-    resolution: {integrity: sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==}
+  ajv@8.18.0:
+    resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
   ansi-escapes@7.3.0:
     resolution: {integrity: sha512-BvU8nYgGQBxcmMuEeUEmNTvrMVjJNSH7RgW24vXexN4Ven6qCvy4TntnvlnwnMLTVlcRQQdbRY8NKnaIoeWDNg==}
@@ -2283,8 +2283,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-  undici@6.25.0:
-    resolution: {integrity: sha512-ZgpWDC5gmNiuY9CnLVXEH8rl50xhRCuLNA97fAUnKi8RRuV4E6KG31pDTsLVUKnohJE0I3XDrTeEydAXRw47xg==}
+  undici@6.24.1:
+    resolution: {integrity: sha512-sC+b0tB1whOCzbtlx20fx3WgCXwkW627p4EA9uM+/tNNPkSS+eSEld6pAs9nDv7WbY1UUljBMYPtu9BCOrCWKA==}
     engines: {node: '>=18.17'}
 
   unicode-emoji-modifier-base@1.0.0:
@@ -2702,23 +2702,23 @@ snapshots:
     dependencies:
       '@qdrant/openapi-typescript-fetch': 1.2.6
       typescript: 5.9.3
-      undici: 6.25.0
+      undici: 6.24.1
 
   '@qdrant/openapi-typescript-fetch@1.2.6': {}
 
-  '@scalar/client-side-rendering@0.1.3':
+  '@scalar/client-side-rendering@0.1.2':
     dependencies:
-      '@scalar/types': 0.9.2
+      '@scalar/types': 0.9.1
 
-  '@scalar/express-api-reference@0.9.10':
+  '@scalar/express-api-reference@0.9.9':
     dependencies:
-      '@scalar/client-side-rendering': 0.1.3
+      '@scalar/client-side-rendering': 0.1.2
 
-  '@scalar/helpers@0.5.2': {}
+  '@scalar/helpers@0.5.1': {}
 
-  '@scalar/types@0.9.2':
+  '@scalar/types@0.9.1':
     dependencies:
-      '@scalar/helpers': 0.5.2
+      '@scalar/helpers': 0.5.1
       nanoid: 5.1.9
       type-fest: 5.6.0
       zod: 4.3.6
@@ -2873,16 +2873,16 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  adminforth@2.45.0(@types/node@22.19.13)(typescript@5.9.3):
+  adminforth@2.50.0(@types/node@22.19.13)(typescript@5.9.3):
     dependencies:
       '@babel/parser': 7.29.0
       '@clickhouse/client': 1.18.1
       '@faker-js/faker': 9.9.0
       '@inquirer/prompts': 7.10.1(@types/node@22.19.13)
       '@qdrant/js-client-rest': 1.17.0(typescript@5.9.3)
-      '@scalar/express-api-reference': 0.9.10
+      '@scalar/express-api-reference': 0.9.9
       '@types/express': 4.17.25
-      ajv: 8.20.0
+      ajv: 8.18.0
       arg: 5.0.2
       ast-types: 0.14.2
       better-sqlite3: 11.10.0
@@ -2936,7 +2936,7 @@ snapshots:
       clean-stack: 5.3.0
       indent-string: 5.0.0
 
-  ajv@8.20.0:
+  ajv@8.18.0:
     dependencies:
       fast-deep-equal: 3.1.3
       fast-uri: 3.1.0
@@ -4779,7 +4779,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici@6.25.0: {}
+  undici@6.24.1: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
