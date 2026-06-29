@@ -77,7 +77,7 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
             this.adminforth
           );
 
-          const action = resourceCopy.options.bulkActions.find((act) => act.id == actionId);
+          const action = resourceCopy.options.bulkActions?.find((act) => act.id == actionId);
           if (!action) {
             return { error: await tr(`Action {actionId} not found`, 'errors', { actionId }) };
           } 
