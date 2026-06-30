@@ -30,13 +30,16 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     schema: z.ZodType<T>,
     body: unknown,
     response: { setStatus: (code: number, message: string) => void },
-  ): T | null {
+  ): { ok: true; data: T } | { ok: false; error: { error: string; details: unknown } } {
     const parsed = schema.safeParse(body ?? {});
     if (!parsed.success) {
-      response.setStatus(422, parsed.error.message);
-      return null;
+      response.setStatus(400, '');
+      return {
+        ok: false,
+        error: { error: 'Request body validation failed', details: parsed.error.issues },
+      };
     }
-    return parsed.data;
+    return { ok: true, data: parsed.data };
   }
 
   instanceUniqueRepresentation(pluginOptions: any) : string {
@@ -76,8 +79,9 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
       method: 'POST',
       path: `/plugin/${this.pluginInstanceId}/start_bulk_action`,
       handler: async ({ body, adminUser, tr, response: httpResponse }) => {
-          const data = this.parseBody(startBulkActionBodySchema, body, httpResponse);
-          if (!data) return;
+          const parsed = this.parseBody(startBulkActionBodySchema, body, httpResponse);
+          if ('error' in parsed) return parsed.error;
+          const data = parsed.data;
           const { resourceId, actionId, recordIds } = data;
           const resource = this.adminforth.config.resources.find((res) => res.resourceId == resourceId);
           if (!resource) {
