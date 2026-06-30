@@ -5,7 +5,7 @@ import type {
 } from "adminforth";
 import clone from 'clone';
 
-import { AdminForthPlugin, AdminForthResourcePages, suggestIfTypo } from "adminforth";
+import { AdminForthPlugin, parseBody, AdminForthResourcePages, suggestIfTypo } from "adminforth";
 import { PluginOptions } from "./types.js";
 import { interpretResource, ActionCheckSource } from "adminforth";
 import { z } from "zod";
@@ -24,22 +24,6 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
   constructor(options: PluginOptions) {
     super(options, import.meta.url);
     this.options = options;
-  }
-
-  private parseBody<T>(
-    schema: z.ZodType<T>,
-    body: unknown,
-    response: { setStatus: (code: number, message: string) => void },
-  ): { ok: true; data: T } | { ok: false; error: { error: string; details: unknown } } {
-    const parsed = schema.safeParse(body ?? {});
-    if (!parsed.success) {
-      response.setStatus(400, '');
-      return {
-        ok: false,
-        error: { error: 'Request body validation failed', details: parsed.error.issues },
-      };
-    }
-    return { ok: true, data: parsed.data };
   }
 
   instanceUniqueRepresentation(pluginOptions: any) : string {
@@ -79,7 +63,7 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
       method: 'POST',
       path: `/plugin/${this.pluginInstanceId}/start_bulk_action`,
       handler: async ({ body, adminUser, tr, response: httpResponse }) => {
-          const parsed = this.parseBody(startBulkActionBodySchema, body, httpResponse);
+          const parsed = parseBody(startBulkActionBodySchema, body, httpResponse);
           if ('error' in parsed) return parsed.error;
           const data = parsed.data;
           const { resourceId, actionId, recordIds } = data;
