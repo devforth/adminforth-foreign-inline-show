@@ -8,6 +8,13 @@ import clone from 'clone';
 import { AdminForthPlugin, AdminForthResourcePages, suggestIfTypo } from "adminforth";
 import { PluginOptions } from "./types.js";
 import { interpretResource, ActionCheckSource } from "adminforth";
+import { z } from "zod";
+
+const startBulkActionBodySchema = z.object({
+  resourceId: z.string(),
+  actionId: z.union([z.string(), z.number()]),
+  recordIds: z.array(z.union([z.string(), z.number()])),
+}).strict();
 
 export default class ForeignInlineShowPlugin extends AdminForthPlugin {
   foreignResource: AdminForthResource;
@@ -17,6 +24,19 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
   constructor(options: PluginOptions) {
     super(options, import.meta.url);
     this.options = options;
+  }
+
+  private parseBody<T>(
+    schema: z.ZodType<T>,
+    body: unknown,
+    response: { setStatus: (code: number, message: string) => void },
+  ): T | null {
+    const parsed = schema.safeParse(body ?? {});
+    if (!parsed.success) {
+      response.setStatus(422, parsed.error.message);
+      return null;
+    }
+    return parsed.data;
   }
 
   instanceUniqueRepresentation(pluginOptions: any) : string {
@@ -55,8 +75,10 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     server.endpoint({
       method: 'POST',
       path: `/plugin/${this.pluginInstanceId}/start_bulk_action`,
-      handler: async ({ body, adminUser, tr }) => {
-          const { resourceId, actionId, recordIds } = body;
+      handler: async ({ body, adminUser, tr, response: httpResponse }) => {
+          const data = this.parseBody(startBulkActionBodySchema, body, httpResponse);
+          if (!data) return;
+          const { resourceId, actionId, recordIds } = data;
           const resource = this.adminforth.config.resources.find((res) => res.resourceId == resourceId);
           if (!resource) {
               return { error: await tr(`Resource {resourceId} not found`, 'errors', { resourceId }) };
