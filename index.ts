@@ -5,7 +5,7 @@ import type {
 } from "adminforth";
 import clone from 'clone';
 
-import { AdminForthPlugin, parseBody, AdminForthResourcePages, suggestIfTypo } from "adminforth";
+import { AdminForthPlugin, AdminForthResourcePages, suggestIfTypo } from "adminforth";
 import { PluginOptions } from "./types.js";
 import { interpretResource, ActionCheckSource } from "adminforth";
 import { z } from "zod";
@@ -62,10 +62,9 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     server.endpoint({
       method: 'POST',
       path: `/plugin/${this.pluginInstanceId}/start_bulk_action`,
-      handler: async ({ body, adminUser, tr, response: httpResponse }) => {
-          const parsed = parseBody(startBulkActionBodySchema, body, httpResponse);
-          if ('error' in parsed) return parsed.error;
-          const data = parsed.data;
+      request_schema: startBulkActionBodySchema,
+      handler: async ({ body, adminUser, tr }) => {
+          const data = body as z.infer<typeof startBulkActionBodySchema>;
           const { resourceId, actionId, recordIds } = data;
           const resource = this.adminforth.config.resources.find((res) => res.resourceId == resourceId);
           if (!resource) {
