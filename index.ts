@@ -62,6 +62,7 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     server.endpoint({
       method: 'POST',
       path: `/plugin/${this.pluginInstanceId}/start_bulk_action`,
+      agent: { hiddenFromAgents: true },
       request_schema: startBulkActionBodySchema,
       handler: async ({ body, adminUser, tr }) => {
           const data = body as z.infer<typeof startBulkActionBodySchema>;
