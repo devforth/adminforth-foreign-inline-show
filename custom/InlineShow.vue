@@ -1,38 +1,33 @@
 <template>
-  <td colspan="2" class="pb-3 px-0 pt-0">
+  <!-- the linked record takes the whole row of the show table and sits in the card like a group: a semibold title, its fields in a card under it -->
+  <td colspan="2" class="af-foreign-inline-show block md:table-cell px-5 py-4">
     <div v-if="loading" role="status" class="max-w-sm animate-pulse">
-        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-        <span class="sr-only">{{ $t('Loading...') }}</span>
+      <div class="h-2.5 w-48 mb-4 rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <div class="h-2 max-w-[360px] mb-2.5 rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <div class="h-2 mb-2.5 rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <div class="h-2 max-w-[330px] mb-2.5 rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <div class="h-2 max-w-[300px] mb-2.5 rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <div class="h-2 max-w-[360px] rounded-full bg-lightSkeletonBackgroundColor dark:bg-darkSkeletonBackgroundColor"></div>
+      <span class="sr-only">{{ $t('Loading...') }}</span>
     </div>
-    <div 
-      v-else-if="coreStore.record"
-      class="relative w-full flex flex-col gap-4"
-    >
-    <div class="flex items-center gap-1">
-      <h4 v-if="parentRecord"
-          class="px-6 py-4"
-      >{{ listResource.label }} {{$t('inline record')}}</h4>
-    </div>  
-      <div v-if="parentRecord">
-        <ShowTable
-          :columns="filteredColumns"
-          :resource="listResource"
-          :record="parentRecord"
-          :isRounded="false"
-        />
-      </div>
-    </div>
+    <template v-else>
+      <h4 class="af-foreign-inline-show-title mb-3 text-sm font-semibold text-lightShowTableHeadingText dark:text-darkShowTableHeadingText">
+        {{ listResource.label }} {{$t('inline record')}}
+      </h4>
+      <ShowTable
+        v-if="parentRecord"
+        :columns="filteredColumns"
+        :resource="listResource"
+        :record="parentRecord"
+      />
+      <!-- no linked record is an empty value, shown as a faint dash like empty fields -->
+      <span v-else class="text-sm text-lightInputPlaceholderText dark:text-darkInputPlaceholderText">-</span>
+    </template>
   </td>
 </template>
 
 
 <script setup lang="ts">
-import { useCoreStore } from '@/stores/core';
 import { onMounted, ref, computed, watchEffect } from 'vue';
 import {callAdminForthApi} from '@/utils';
 import { showSuccesTost, showErrorTost } from '@/composables/useFrontendApi';
@@ -45,7 +40,6 @@ const parentRecord = ref(null);
 const props = defineProps(['column', 'record', 'meta', 'resource', 'adminUser']);
 const loading = ref(true);
 const { t } = useI18n();
-const coreStore = useCoreStore();
 const listResource = ref(null);
 
 const parentResourceRefColumn = computed(() => {
