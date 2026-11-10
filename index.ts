@@ -10,9 +10,8 @@ import { PluginOptions } from "./types.js";
 import { interpretResource, ActionCheckSource } from "adminforth";
 
 export default class ForeignInlineShowPlugin extends AdminForthPlugin {
-  foreignResource: AdminForthResource;
+  foreignResource!: AdminForthResource;
   options: PluginOptions;
-  adminforth: IAdminForth;
 
   constructor(options: PluginOptions) {
     super(options, import.meta.url);
@@ -58,11 +57,12 @@ export default class ForeignInlineShowPlugin extends AdminForthPlugin {
     super.modifyResourceConfig(adminforth, resourceConfig);
     this.adminforth = adminforth;
 
-    this.foreignResource = adminforth.config.resources.find((resource) => resource.resourceId === this.options.foreignResourceId);
-    if (!this.foreignResource) {
+    const foreignResource = adminforth.config.resources.find((resource) => resource.resourceId === this.options.foreignResourceId);
+    if (!foreignResource) {
       const similar = suggestIfTypo(adminforth.config.resources.map((res) => res.resourceId), this.options.foreignResourceId);
       throw new Error(`ForeignInlineShowPlugin: Resource with ID "${this.options.foreignResourceId}" not found. ${similar ? `Did you mean "${similar}"?` : ''}`);
     }
+    this.foreignResource = foreignResource;
 
     const newColumn = {
       name: `foreignInlineShow_${this.foreignResource.resourceId}`,
